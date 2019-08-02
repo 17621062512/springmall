@@ -8,3 +8,8 @@
 out
 gen
 /target
+*/.gitignore
+.mvn/
+mvnw
+mvnw.cmd
+
