@@ -7,6 +7,26 @@ spring:
     password: li0512/*
     url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
 
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    timeout: 3000ms
+
+#自定义redis key
+redis:
+  key:
+    prefix:
+      authCode: "protal:authCode:"
+      expire: 120 #验证码超时时间
+
 mybatis:
   mapper-locations:
   - classpath:mapper/*.xml
