@@ -4,11 +4,15 @@ import com.leemon.mall.componet.JwtAuthenticationTokenFilter;
 import com.leemon.mall.componet.RestAuthenticationEntryPoint;
 import com.leemon.mall.componet.RestfulAccessDeniedHandler;
 import com.leemon.mall.dto.AdminUserDetails;
+import com.leemon.mall.mbg.model.UmsAdmin;
+import com.leemon.mall.mbg.model.UmsPermission;
+import com.leemon.mall.service.UmsAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,6 +25,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.List;
+
 /**
  * @author limenglong
  * @create 2019-08-13 10:44
@@ -29,7 +35,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UmsAdminService umsAdminService;
 
     @Autowired
     private RestfulAccessDeniedHandler accessDeniedHandler;
@@ -48,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,
                         "/",
                         "/*.html",
-                        "/favicon.ioc",
+                        "/favicon.ico",
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
@@ -63,8 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
                 //测试时全部允许访问
-                .antMatchers("/**")
-                .permitAll()
+//                .antMatchers("/**")
+//                .permitAll()
                 //除上面外全部需要鉴权认证
                 .anyRequest().authenticated();
 
@@ -83,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(null).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -91,13 +101,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationTokenFilter();
     }
 
-    @Bean(name = "myPasswornEncoder")
+    @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
-        return username -> new AdminUserDetails();
+    public UserDetailsService userDetailsService() {
+        //获取登录用户信息
+        return username -> {
+            UmsAdmin admin = umsAdminService.getAdminByUserName(username);
+            if (admin != null) {
+                List<UmsPermission> permissionList = umsAdminService.getPermissionList(admin.getId());
+                return new AdminUserDetails(admin,permissionList);
+            }
+            throw new UsernameNotFoundException("用户名或密码错误");
+        };
     }
 }

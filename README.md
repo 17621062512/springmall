@@ -11,3 +11,12 @@
   ```maven
   <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
   ```
+  
+ ### 
+ [Spring Security做JWT认证和授权](https://www.jianshu.com/p/d5ce890c67f7)
+ 
+ ### Spring Security 踩坑
+ - 在配置继承`WebSecurityConfigurerAdapter`的自定义类时，  
+ 除了加上`@EnableWebSecurity`开启安全认证模块时，还需要加上  
+ `EnableGlobalMethodSecurity(prePostEnabled = true)`注解，  
+ 否则在`controller`层请求接口前的权限认证`@PreAuthorize`会不生效
