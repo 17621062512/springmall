@@ -29,7 +29,7 @@ public class AdminUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return permissionList.stream().filter(umsPermission -> umsPermission!=null)
+        return permissionList.stream().filter(umsPermission -> umsPermission.getValue()!=null)
                 .map( umsPermission -> new SimpleGrantedAuthority(umsPermission.getValue()))
                 .collect(Collectors.toList());
     }

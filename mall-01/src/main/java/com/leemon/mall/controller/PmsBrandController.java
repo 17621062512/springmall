@@ -6,6 +6,7 @@ import com.leemon.mall.mbg.model.PmsBrand;
 import com.leemon.mall.service.PmsBrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,8 +91,8 @@ public class PmsBrandController {
     @ApiOperation("分页查询品牌列表")
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('pms:brand:read')")
-    public CommenResult<CommenPage> listBrand(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                              @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+    public CommenResult<CommenPage> listBrand(@RequestParam(value = "pageNum", defaultValue = "1") @ApiParam("页码") Integer pageNum,
+                                              @RequestParam(value = "pageSize", defaultValue = "3") @ApiParam("每页数量") Integer pageSize) {
 
         List<PmsBrand> brands = pmsBrandService.listBrand(pageNum, pageSize);
         return CommenResult.success(CommenPage.restPage(brands));
