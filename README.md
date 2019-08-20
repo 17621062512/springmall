@@ -20,3 +20,10 @@
  除了加上`@EnableWebSecurity`开启安全认证模块时，还需要加上  
  `EnableGlobalMethodSecurity(prePostEnabled = true)`注解，  
  否则在`controller`层请求接口前的权限认证`@PreAuthorize`会不生效
+ 
+ ###spring aop
+ `@Aspect` 定义切面
+ 
+ 
+ ###小知识点
+ `@Order(1)`主要用来控制配置类的加载顺序
