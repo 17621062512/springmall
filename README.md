@@ -22,8 +22,12 @@
  否则在`controller`层请求接口前的权限认证`@PreAuthorize`会不生效
  
  ### spring aop  
- [Spring4深入理解AOP02----AOP简介，AspectJ，AOP基于注解和XML配置（5种通知，切面优先级）](https://blog.csdn.net/ochangwen/article/details/52557724)
+ [Spring4深入理解AOP02----AOP简介，AspectJ，AOP基于注解和XML配置（5种通知，切面优先级）](https://blog.csdn.net/ochangwen/article/details/52557724)  
  [org.aspectj.lang.JoinPoint-中文简要API](https://blog.csdn.net/a9529lty/article/details/7031070)
+ 
+ ### RabbitMQ
+ [RabbitMQ教程](https://blog.csdn.net/hellozpc/article/details/81436980#52_204)  
+ [RabbitMQ技术详解](http://www.uml.org.cn/zjjs/201805234.asp)
  
  ### 小知识点
  `@Order(1)`主要用来控制配置类的加载顺序
