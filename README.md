@@ -27,7 +27,8 @@
  
  ### RabbitMQ
  [RabbitMQ教程](https://blog.csdn.net/hellozpc/article/details/81436980#52_204)  
- [RabbitMQ技术详解](http://www.uml.org.cn/zjjs/201805234.asp)
+ [RabbitMQ技术详解](http://www.uml.org.cn/zjjs/201805234.asp)  
+ [Spring Boot 实现 RabbitMQ 延迟消费和延迟重试队列](https://www.cnblogs.com/xishuai/p/spring-boot-rabbitmq-delay-queue.html)
  
  ### 小知识点
  `@Order(1)`主要用来控制配置类的加载顺序
