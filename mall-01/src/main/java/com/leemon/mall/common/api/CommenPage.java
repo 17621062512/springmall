@@ -3,6 +3,7 @@ package com.leemon.mall.common.api;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.leemon.mall.mbg.model.PmsBrand;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -31,6 +32,15 @@ public class CommenPage<T> {
         return result;
     }
 
+    public static <T> CommenPage<T> restPage(Page<T> pageInfo) {
+        CommenPage<T> result = new CommenPage<>();
+        result.setTotalPage(pageInfo.getTotalPages());
+        result.setPageNum(pageInfo.getNumber());
+        result.setPageSize(pageInfo.getSize());
+        result.setTotal(pageInfo.getTotalElements());
+        result.setList(pageInfo.getContent());
+        return result;
+    }
 
     public Integer getPageNum() {
         return pageNum;

@@ -35,5 +35,12 @@
  - 使用`TTL`和`DLX`实现延时队列，生产者延时消息发出后，消费者接收不到消息  
    原因：生产者发送的消息参数类型与消费者接收的消息参数类型不一致；
  
+ 
+ ### 简单使用elasticsearch
+ [SpringBoot整合Elasticsearch](https://blog.csdn.net/chen_2890/article/details/83895646)
+ - 踩坑  
+  [关于ElasticSearch的9200和9300端口区别](https://blog.csdn.net/a992795427/article/details/86611650)
+ 
+ 
  ### 小知识点
  `@Order(1)`主要用来控制配置类的加载顺序
