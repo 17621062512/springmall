@@ -31,5 +31,9 @@
  [Spring Boot 实现 RabbitMQ 延迟消费和延迟重试队列](https://www.cnblogs.com/xishuai/p/spring-boot-rabbitmq-delay-queue.html)  
  [RAbbitMQ中文文档](http://rabbitmq.mr-ping.com/)
  
+ #### RabbitMQ踩坑
+ - 使用`TTL`和`DLX`实现延时队列，生产者延时消息发出后，消费者接收不到消息  
+   原因：生产者发送的消息参数类型与消费者接收的消息参数类型不一致；
+ 
  ### 小知识点
  `@Order(1)`主要用来控制配置类的加载顺序

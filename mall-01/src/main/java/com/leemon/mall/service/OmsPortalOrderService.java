@@ -1,0 +1,24 @@
+package com.leemon.mall.service;
+
+import com.leemon.mall.common.api.CommenResult;
+import com.leemon.mall.dto.OrderParam;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * 前台订单管理service
+ */
+public interface OmsPortalOrderService {
+
+    /**
+     * 根据提交信息生成订单
+     */
+    @Transactional
+    CommenResult generateOrder(OrderParam orderParam);
+
+
+    /**
+     * 取消单个超时订单
+     */
+    @Transactional
+    void cancelOrder(Long orderId);
+}
