@@ -43,6 +43,11 @@ spring:
       #集群名称
       cluster-name: elasticsearch_limenglong
 
+    mongodb:
+      host: localhost
+      port: 27017
+      database: mall-port
+
 
 #自定义redis key
 redis:
