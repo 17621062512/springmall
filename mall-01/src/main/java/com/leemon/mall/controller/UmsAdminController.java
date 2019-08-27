@@ -1,6 +1,6 @@
 package com.leemon.mall.controller;
 
-import com.leemon.mall.common.api.CommenResult;
+import com.leemon.mall.common.api.CommonResult;
 import com.leemon.mall.dto.UmsAdminLoginParam;
 import com.leemon.mall.mbg.model.UmsAdmin;
 import com.leemon.mall.mbg.model.UmsPermission;
@@ -37,34 +37,34 @@ public class UmsAdminController {
 
     @ApiOperation("用户注册")
     @PostMapping("/register")
-    public CommenResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdmin, BindingResult bindingResult) {
+    public CommonResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdmin, BindingResult bindingResult) {
         UmsAdmin admin = umsAdminService.register(umsAdmin);
         if (admin == null) {
-            CommenResult.failed();
+            CommonResult.failed();
         }
 
-        return CommenResult.success(admin);
+        return CommonResult.success(admin);
     }
 
     @ApiOperation("登陆以后返回token")
     @PostMapping("/login")
-    public CommenResult login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult bindingResult) {
+    public CommonResult login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult bindingResult) {
         String token = umsAdminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
         if (token == null) {
-            return CommenResult.failed("用户名或密码错误");
+            return CommonResult.failed("用户名或密码错误");
         }
 
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
-        return CommenResult.success(tokenMap);
+        return CommonResult.success(tokenMap);
     }
 
     @ApiOperation("获取用户所有权限（包括加减权限）")
     @GetMapping("/permission/{id}")
     @PreAuthorize("hasAuthority('pms:brand:update')")
-    public CommenResult<List<UmsPermission>> getPermissionList(@PathVariable("id") Long id) {
+    public CommonResult<List<UmsPermission>> getPermissionList(@PathVariable("id") Long id) {
         List<UmsPermission> permissionList = umsAdminService.getPermissionList(id);
-        return CommenResult.success(permissionList);
+        return CommonResult.success(permissionList);
     }
 }

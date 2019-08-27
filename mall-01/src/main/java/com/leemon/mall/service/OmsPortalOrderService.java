@@ -1,6 +1,6 @@
 package com.leemon.mall.service;
 
-import com.leemon.mall.common.api.CommenResult;
+import com.leemon.mall.common.api.CommonResult;
 import com.leemon.mall.dto.OrderParam;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +13,7 @@ public interface OmsPortalOrderService {
      * 根据提交信息生成订单
      */
     @Transactional
-    CommenResult generateOrder(OrderParam orderParam);
+    CommonResult generateOrder(OrderParam orderParam);
 
 
     /**

@@ -1,7 +1,7 @@
 package com.leemon.mall.controller;
 
 import com.leemon.mall.common.api.CommenPage;
-import com.leemon.mall.common.api.CommenResult;
+import com.leemon.mall.common.api.CommonResult;
 import com.leemon.mall.mbg.model.PmsBrand;
 import com.leemon.mall.service.PmsBrandService;
 import io.swagger.annotations.Api;
@@ -34,76 +34,76 @@ public class PmsBrandController {
     @ApiOperation("获取所有品牌列表")
     @GetMapping("/listAll")
     @PreAuthorize("hasAuthority('pms:brand:read')")
-    public CommenResult<List<PmsBrand>> getBrandList() {
-        return CommenResult.success(pmsBrandService.listAllBrand());
+    public CommonResult<List<PmsBrand>> getBrandList() {
+        return CommonResult.success(pmsBrandService.listAllBrand());
     }
 
 
     @ApiOperation("添加品牌")
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('pms:brand:create')")
-    public CommenResult createBrand(@RequestBody PmsBrand pmsBrand) {
-        CommenResult commenResult;
+    public CommonResult createBrand(@RequestBody PmsBrand pmsBrand) {
+        CommonResult commonResult;
         int count = pmsBrandService.createBrand(pmsBrand);
         if (count == 1) {
-            commenResult = CommenResult.success(pmsBrand);
+            commonResult = CommonResult.success(pmsBrand);
             LOGGER.debug("createBrand success:{}", pmsBrand);
         } else {
-            commenResult = CommenResult.failed("操作失败");
+            commonResult = CommonResult.failed("操作失败");
             LOGGER.debug("createBrand failed:{}", pmsBrand);
         }
-        return commenResult;
+        return commonResult;
     }
 
     @ApiOperation("更新指定ID品牌信息")
     @PostMapping("/update/{id}")
     @PreAuthorize("hasAuthority('pms:brand:update')")
-    public CommenResult updateBrand(@PathVariable("id") Long id, @RequestBody PmsBrand pmsBrandDto) {
-        CommenResult commenResult;
+    public CommonResult updateBrand(@PathVariable("id") Long id, @RequestBody PmsBrand pmsBrandDto) {
+        CommonResult commonResult;
         int count = pmsBrandService.updateBrand(id, pmsBrandDto);
         if (count == 1) {
-            commenResult = CommenResult.success(pmsBrandDto);
+            commonResult = CommonResult.success(pmsBrandDto);
             LOGGER.debug("updateBrand success:{}", pmsBrandDto);
         } else {
-            commenResult = CommenResult.failed("操作失败");
+            commonResult = CommonResult.failed("操作失败");
             LOGGER.debug("updateBrand failed:{}", pmsBrandDto);
         }
-        return commenResult;
+        return commonResult;
     }
 
 
     @ApiOperation("删除指定id的品牌")
     @GetMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('pms:brand:delete')")
-    public CommenResult deleteBrand(@PathVariable("id") Long id) {
-        CommenResult commenResult;
+    public CommonResult deleteBrand(@PathVariable("id") Long id) {
+        CommonResult commonResult;
         int count = pmsBrandService.deleteBrand(id);
         if (count == 1) {
-            commenResult = CommenResult.success(null);
+            commonResult = CommonResult.success(null);
             LOGGER.debug("deleteBrand success :id={}", id);
         } else {
-            commenResult = CommenResult.failed("操作失败");
+            commonResult = CommonResult.failed("操作失败");
             LOGGER.debug("deleteBrand failed :id={}", id);
         }
-        return commenResult;
+        return commonResult;
     }
 
     @ApiOperation("分页查询品牌列表")
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('pms:brand:read')")
-    public CommenResult<CommenPage> listBrand(@RequestParam(value = "pageNum", defaultValue = "1") @ApiParam("页码") Integer pageNum,
+    public CommonResult<CommenPage> listBrand(@RequestParam(value = "pageNum", defaultValue = "1") @ApiParam("页码") Integer pageNum,
                                               @RequestParam(value = "pageSize", defaultValue = "3") @ApiParam("每页数量") Integer pageSize) {
 
         List<PmsBrand> brands = pmsBrandService.listBrand(pageNum, pageSize);
-        return CommenResult.success(CommenPage.restPage(brands));
+        return CommonResult.success(CommenPage.restPage(brands));
 
     }
 
     @ApiOperation("获取指定id的品牌信息")
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('pms:brand:read')")
-    public CommenResult brand(@PathVariable("id") Long id) {
+    public CommonResult brand(@PathVariable("id") Long id) {
         PmsBrand brand = pmsBrandService.getBrand(id);
-        return CommenResult.success(brand);
+        return CommonResult.success(brand);
     }
 }

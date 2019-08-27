@@ -1,7 +1,7 @@
 package com.leemon.mall.componet;
 
 import cn.hutool.json.JSONUtil;
-import com.leemon.mall.common.api.CommenResult;
+import com.leemon.mall.common.api.CommonResult;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        response.getWriter().println(JSONUtil.parse(CommenResult.forbidden(accessDeniedException.getMessage())));
+        response.getWriter().println(JSONUtil.parse(CommonResult.forbidden(accessDeniedException.getMessage())));
         response.getWriter().flush();
     }
 }

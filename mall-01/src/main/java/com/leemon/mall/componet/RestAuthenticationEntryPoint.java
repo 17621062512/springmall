@@ -1,7 +1,7 @@
 package com.leemon.mall.componet;
 
 import cn.hutool.json.JSONUtil;
-import com.leemon.mall.common.api.CommenResult;
+import com.leemon.mall.common.api.CommonResult;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        response.getWriter().println(JSONUtil.parse(CommenResult.unauthorized(authException.getMessage())));
+        response.getWriter().println(JSONUtil.parse(CommonResult.unauthorized(authException.getMessage())));
         response.getWriter().flush();
     }
 }

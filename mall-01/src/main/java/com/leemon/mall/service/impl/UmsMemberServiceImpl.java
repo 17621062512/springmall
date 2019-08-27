@@ -1,6 +1,6 @@
 package com.leemon.mall.service.impl;
 
-import com.leemon.mall.common.api.CommenResult;
+import com.leemon.mall.common.api.CommonResult;
 import com.leemon.mall.service.RedisService;
 import com.leemon.mall.service.UmsMemberService;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +25,7 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     private Long AUTH_CODE_EXPIRE_SECONDS;
 
     @Override
-    public CommenResult generateAuthCode(String tel) {
+    public CommonResult generateAuthCode(String tel) {
         StringBuilder builder = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < 6; i++) {
@@ -34,21 +34,21 @@ public class UmsMemberServiceImpl implements UmsMemberService {
         //验证码绑定收手机号并存储到redis
         redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + tel, builder.toString());
         redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE + tel, AUTH_CODE_EXPIRE_SECONDS);
-        return CommenResult.success(builder.toString(), "获取验证码成功");
+        return CommonResult.success(builder.toString(), "获取验证码成功");
     }
 
     @Override
-    public CommenResult verifyAuthCode(String tel, String authCode) {
+    public CommonResult verifyAuthCode(String tel, String authCode) {
         if (StringUtils.isEmpty(authCode)) {
-            return CommenResult.failed("请输入验证码");
+            return CommonResult.failed("请输入验证码");
         }
 
         String realAuthCode = redisService.get(REDIS_KEY_PREFIX_AUTH_CODE + tel);
         boolean result = authCode.equals(realAuthCode);
         if (result) {
-            return CommenResult.success(null, "验证码校验成功");
+            return CommonResult.success(null, "验证码校验成功");
         } else {
-            return CommenResult.validateFailed("验证码不正确");
+            return CommonResult.validateFailed("验证码不正确");
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.leemon.mall.controller;
 
-import com.leemon.mall.common.api.CommenResult;
+import com.leemon.mall.common.api.CommonResult;
 import com.leemon.mall.service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,13 +23,13 @@ public class UmsMemberController {
 
     @ApiOperation("获取验证码")
     @GetMapping("/getAuthCode")
-    public CommenResult getAuthCode(@RequestParam String tel) {
+    public CommonResult getAuthCode(@RequestParam String tel) {
         return umsMemberService.generateAuthCode(tel);
     }
 
     @ApiOperation("校验验证码")
     @PostMapping("/verifyAuthCode")
-    public CommenResult verifyAuthCode(@RequestParam String tel, @RequestParam String authCode) {
+    public CommonResult verifyAuthCode(@RequestParam String tel, @RequestParam String authCode) {
         return umsMemberService.verifyAuthCode(tel, authCode);
     }
 

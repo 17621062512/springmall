@@ -67,3 +67,21 @@ jwt:
   secret: mySecret #jwt加解密使用的密钥
   expiration: 86400  #JWT的超期限时间(60*60*24)
   tokenHead: Bearer #JWT负载中拿到开头
+
+aliyun:
+  oss:
+    #oss对外服务的访问域名
+    endpoint: oss-cn-shanghai.aliyuncs.com
+    #访问验证身份中哟道德用户标识
+    accessKeyId:
+    #用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    accessKeySecret:
+    bucketName: leemon-oss
+  policy:
+    expire: 300 #签名有效期(s)
+  maxSize: 10 #上传文件大小(M)
+  #文件上传成功后的回调地址
+  callback: http://localhost:8801/aliyun/oss/callback
+  dir:
+    #上传文件夹路径前缀
+    prefix: mall/images

@@ -1,7 +1,7 @@
 package com.leemon.mall.controller;
 
 import com.leemon.mall.common.api.CommenPage;
-import com.leemon.mall.common.api.CommenResult;
+import com.leemon.mall.common.api.CommonResult;
 import com.leemon.mall.nosql.elasticsearch.document.EsProduct;
 import com.leemon.mall.service.EsProductService;
 import io.swagger.annotations.Api;
@@ -28,44 +28,44 @@ public class EsProductController {
 
     @ApiOperation(value = "导入所有数据库中商品到ES")
     @PostMapping("/importAll")
-    public CommenResult<Integer> importAll() {
+    public CommonResult<Integer> importAll() {
         int count = esProductService.importAll();
 
-        return CommenResult.success(count);
+        return CommonResult.success(count);
     }
 
 
     @ApiOperation("根据id删除商品")
     @GetMapping("delete/{id}")
-    public CommenResult delete(@PathVariable("id") Long id) {
+    public CommonResult delete(@PathVariable("id") Long id) {
         esProductService.delete(id);
-        return CommenResult.success(null);
+        return CommonResult.success(null);
     }
 
     @ApiOperation("批量删除商品")
     @PostMapping("/delete/batch")
-    public CommenResult delete(@RequestParam("ids") List<Long> ids) {
+    public CommonResult delete(@RequestParam("ids") List<Long> ids) {
         esProductService.delete(ids);
-        return CommenResult.success(null);
+        return CommonResult.success(null);
     }
 
     @ApiOperation("根据id添加商品")
     @PostMapping("create/{id}")
-    public CommenResult create(@PathVariable("id") Long id) {
+    public CommonResult create(@PathVariable("id") Long id) {
         EsProduct esProduct = esProductService.create(id);
         if (esProduct != null) {
-            return CommenResult.success(esProduct);
+            return CommonResult.success(esProduct);
         }
-        return CommenResult.failed();
+        return CommonResult.failed();
     }
 
     @ApiOperation("简单搜索")
     @PostMapping("/search/simple")
-    public CommenResult search(@RequestParam(required = false) String keyword,
+    public CommonResult search(@RequestParam(required = false) String keyword,
                                @RequestParam(required = false, defaultValue = "0") Integer pageNum,
                                @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
 
         Page<EsProduct> esProductPage = esProductService.search(keyword, pageNum, pageSize);
-        return CommenResult.success(CommenPage.restPage(esProductPage));
+        return CommonResult.success(CommenPage.restPage(esProductPage));
     }
 }

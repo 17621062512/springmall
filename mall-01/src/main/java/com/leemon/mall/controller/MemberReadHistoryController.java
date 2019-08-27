@@ -1,6 +1,6 @@
 package com.leemon.mall.controller;
 
-import com.leemon.mall.common.api.CommenResult;
+import com.leemon.mall.common.api.CommonResult;
 import com.leemon.mall.nosql.mongodb.document.MemberReadHistory;
 import com.leemon.mall.service.MemberReadHistoryService;
 import io.swagger.annotations.Api;
@@ -26,30 +26,30 @@ public class MemberReadHistoryController {
 
     @ApiOperation("创建浏览记录")
     @PostMapping("/create")
-    public CommenResult create(@RequestBody MemberReadHistory memberReadHistory) {
+    public CommonResult create(@RequestBody MemberReadHistory memberReadHistory) {
         int count = memberReadHistoryService.create(memberReadHistory);
         if (count > 0) {
-            return CommenResult.success(count);
+            return CommonResult.success(count);
         } else {
-            return CommenResult.failed();
+            return CommonResult.failed();
         }
     }
 
     @ApiOperation("删除浏览记录")
     @PostMapping("/delete")
-    public CommenResult delete(@RequestParam("ids") List<String> ids) {
+    public CommonResult delete(@RequestParam("ids") List<String> ids) {
         int count = memberReadHistoryService.delete(ids);
         if (count > 0) {
-            return CommenResult.success(count);
+            return CommonResult.success(count);
         } else {
-            return CommenResult.failed();
+            return CommonResult.failed();
         }
     }
 
     @ApiOperation("展示浏览记录")
     @GetMapping("/list}")
-    public CommenResult list(Long memberId) {
+    public CommonResult list(Long memberId) {
         List<MemberReadHistory> list = memberReadHistoryService.list(memberId);
-        return CommenResult.success(list);
+        return CommonResult.success(list);
     }
 }
